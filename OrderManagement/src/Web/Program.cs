@@ -6,12 +6,13 @@ using OrderManagement.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
 
 builder.AddServiceDefaults();
 builder.AddApplicationServices();
 builder.AddInfrastructureServices();
 builder.AddWebServices();
+
+var app = builder.Build();
 
 app.MapDefaultEndpoints();
 app.MapEndpoints();

@@ -4,16 +4,9 @@ using OrderManagement.Domain.Entities;
 
 namespace OrderManagement.Infrastructure.Persistence;
 
-public class ApplicationDbContext: DbContext, IApplicationDbContext
+public class ApplicationDbContext(DbContextOptions options) 
+    : DbContext(options), IApplicationDbContext
 {
-    protected ApplicationDbContext()
-    {
-    }
-
-    public ApplicationDbContext(DbContextOptions options) : base(options)
-    {
-    }
-
     public DbSet<Customer> Customers => Set<Customer>();
     public DbSet<Order> Orders => Set<Order>();
 

@@ -20,6 +20,6 @@ public static class DependencyInjection
         });
 
         builder.EnrichSqlServerDbContext<ApplicationDbContext>();
-        //builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+        builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
     }
 }
