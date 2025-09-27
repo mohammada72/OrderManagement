@@ -2,19 +2,25 @@ using Microsoft.EntityFrameworkCore;
 using OrderManagement.Application.Common.Interfaces;
 using OrderManagement.Domain.Entities;
 
-namespace OrderManagement.Infrastructure.Persistence
-{
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-    : DbContext(options), IApplicationDbContext
-    {
-        public DbSet<Order> Orders => Set<Order>();
-        public DbSet<OrderItem> OrderItems => Set<OrderItem>();
+namespace OrderManagement.Infrastructure.Persistence;
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-        }
+public class ApplicationDbContext: DbContext, IApplicationDbContext
+{
+    protected ApplicationDbContext()
+    {
+    }
+
+    public ApplicationDbContext(DbContextOptions options) : base(options)
+    {
+    }
+
+    public DbSet<Customer> Customers => Set<Customer>();
+    public DbSet<Order> Orders => Set<Order>();
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+        builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
 }
 

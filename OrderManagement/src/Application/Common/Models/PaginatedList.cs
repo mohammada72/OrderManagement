@@ -1,4 +1,6 @@
-﻿namespace OrderManagement.Application.Common.Models;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace OrderManagement.Application.Common.Models;
 
 public class PaginatedList<T>
 {

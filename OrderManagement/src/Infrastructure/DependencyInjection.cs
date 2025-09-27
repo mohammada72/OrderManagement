@@ -12,17 +12,14 @@ public static class DependencyInjection
     public static void AddInfrastructureServices(this IHostApplicationBuilder builder)
     {
         var connectionString = builder.Configuration.GetConnectionString("OrderManagementDb");
-        Guard.Against.Null(connectionString, message: "Connection string 'OrderManagementDb' not found.");
 
-        builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
+        builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
         {
-            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-            options.UseSqlServer(connectionString);
+            options.UseSqlServer(connectionString, providerOptions => providerOptions.EnableRetryOnFailure());
             options.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
         });
 
         builder.EnrichSqlServerDbContext<ApplicationDbContext>();
-
-        builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+        //builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
     }
 }

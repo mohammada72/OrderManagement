@@ -1,7 +1,7 @@
 ﻿using Cortex.Mediator.Commands;
 using OrderManagement.Domain.Entities;
 
-namespace Application.CreateCustomer;
+namespace OrderManagement.Application.CreateCustomer;
 
 public class CreateCustomerCommand : ICommand<Customer>
 {

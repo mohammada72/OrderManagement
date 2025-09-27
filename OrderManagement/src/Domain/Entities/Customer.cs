@@ -11,6 +11,9 @@ public sealed class Customer
     internal Customer() { }
     public static Customer Create(string name, string email)
     {
+        if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
+        if (name.Length > 500) throw new ArgumentOutOfRangeException(nameof(name));
+
         var customer = new Customer()
         {
             Name = name,

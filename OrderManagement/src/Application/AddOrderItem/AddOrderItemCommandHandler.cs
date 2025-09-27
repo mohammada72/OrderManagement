@@ -5,13 +5,14 @@ using OrderManagement.Domain.Entities;
 using OrderManagement.Domain.Exceptions;
 
 namespace OrderManagement.Application.AddOrderItem;
-public class AddOrderItemCommandHandler(IApplicationDbContext dbContext) : ICommandHandler<AddOrderItemCommand, OrderItem>
+public class AddOrderItemCommandHandler(IApplicationDbContext dbContext) : ICommandHandler<AddOrderItemCommand, Order>
 {
-    public async Task<OrderItem> Handle(AddOrderItemCommand command, CancellationToken cancellationToken)
+    public async Task<Order> Handle(AddOrderItemCommand command, CancellationToken cancellationToken)
     {
-        var order = await dbContext.Orders.FirstOrDefaultAsync(x => x.Id == command.OrderId) 
+        var order = await dbContext.Orders.FirstOrDefaultAsync(x => x.Id == command.OrderId)
             ?? throw new ItemNotFoundException(nameof(command.OrderId), "Order not found");
         order.AddItem(command.ProductId, command.Quantity, command.UnitPrice);
         await dbContext.SaveChangesAsync(cancellationToken);
+        return order;
     }
 }

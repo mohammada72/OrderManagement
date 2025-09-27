@@ -8,11 +8,6 @@ public static class DependencyInjection
     {
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-        builder.Services.AddHttpContextAccessor();
-
-        builder.Services.Configure<ApiBehaviorOptions>(options =>
-            options.SuppressModelStateInvalidFilter = true);
-
         builder.Services.AddEndpointsApiExplorer();
 
         builder.Services.AddOpenApiDocument((configure, sp) => configure.Title = "OrderManagement API");

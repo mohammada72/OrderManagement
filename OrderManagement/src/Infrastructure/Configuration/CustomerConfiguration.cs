@@ -10,19 +10,14 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     {
         builder.HasKey(x => x.Id);
 
-        builder.OwnsOne(x => x.Email, builder =>
-        {
+        builder.Property(x => x.Name)
+            .HasMaxLength(500);
 
-            builder.HasColumnType("nvarchar(255)");
-        });
-
-
-        
-    //.HasColumnType("nvarchar(255)")
-    //.HasMaxLength(300)
-    //.HasConversion(
-    //    v => v.ToString(),
-    //    w => new Email(w))
-
+        builder.Property(x => x.Email)
+            .HasColumnType("nvarchar(300)")
+            .HasMaxLength(300)
+            .HasConversion(
+                    v => v.ToString(),
+                    w => new Email(w));
     }
 }

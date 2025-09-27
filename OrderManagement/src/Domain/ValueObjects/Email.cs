@@ -19,6 +19,9 @@ namespace OrderManagement.Domain.ValueObjects
             if (string.IsNullOrWhiteSpace(email))
                 return false;
 
+            if(email.Length > 300) 
+                return false;
+
             try
             {
                 var pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";

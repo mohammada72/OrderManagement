@@ -13,8 +13,9 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
 
         builder.OwnsMany(o => o.Items, items =>
         {
-            items.Property(i => i.ProductName).HasMaxLength(200).IsRequired();
             items.Property(i => i.Quantity).IsRequired();
+            items.Property(i => i.UnitPrice).IsRequired();
+            items.Property(i => i.ProductId).IsRequired();
         });
     }
 }

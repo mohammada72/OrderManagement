@@ -1,4 +1,7 @@
-﻿using OrderManagement.Application.Common.Models;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
+using OrderManagement.Application.Common.Models;
 
 namespace OrderManagement.Application.Common.Mappings;
 public static class MappingExtensions
