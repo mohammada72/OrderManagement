@@ -3,5 +3,5 @@
 namespace OrderManagement.Application.CheckoutOrder;
 public record CheckoutOrderCommand : ICommand<int>
 {
-    public long OrderId { get; }
+    public long OrderId { get; set; }
 }

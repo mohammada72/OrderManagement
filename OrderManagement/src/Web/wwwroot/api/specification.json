@@ -106,6 +106,31 @@
         }
       }
     },
+    "/api/Order/Cancel": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "operationId": "Cancel",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelOrderCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/Order/{id}": {
       "get": {
         "tags": [
@@ -185,6 +210,16 @@
         }
       },
       "CheckoutOrderCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "orderId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "CancelOrderCommand": {
         "type": "object",
         "additionalProperties": false,
         "properties": {

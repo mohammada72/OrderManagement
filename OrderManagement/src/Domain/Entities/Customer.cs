@@ -6,7 +6,7 @@ public sealed class Customer
 {
     public long Id { get; set; }
     public string Name { get; set; } = string.Empty;
-    public Email Email { get; set; } = string.Empty;
+    public Email Email { get; set; } = new("w@w.com");
 
     internal Customer() { }
     public static Customer Create(string name, string email)

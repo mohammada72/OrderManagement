@@ -1,6 +1,7 @@
 ﻿using Cortex.Mediator;
 using Microsoft.AspNetCore.Mvc;
 using OrderManagement.Application.AddOrderItem;
+using OrderManagement.Application.CancelOrder;
 using OrderManagement.Application.CheckoutOrder;
 using OrderManagement.Application.CreateOrder;
 using OrderManagement.Application.GetOrder;
@@ -16,6 +17,7 @@ public class OrderEndpoint : EndpointGroupBase
         groupBuilder.MapPost("/", CreateOrder).WithName(nameof(CreateOrder));
         groupBuilder.MapPost("/AddItem", AddOrderItem).WithName(nameof(AddOrderItem));
         groupBuilder.MapPost("/Checkout", Checkout).WithName(nameof(Checkout));
+        groupBuilder.MapPost("/Cancel", Cancel).WithName(nameof(Cancel));
         groupBuilder.MapGet("/{id}", GetById).WithName(nameof(GetById));
     }
 
@@ -35,6 +37,12 @@ public class OrderEndpoint : EndpointGroupBase
     {
         await mediator.SendCommandAsync<CheckoutOrderCommand, int>(command, cancellationToken);
         return Results.Ok("Order checked out");
+    }
+
+    public async Task<IResult> Cancel([FromServices] IMediator mediator, [FromBody] CancelOrderCommand command, CancellationToken cancellationToken)
+    {
+        await mediator.SendCommandAsync<CancelOrderCommand, int>(command, cancellationToken);
+        return Results.Ok("Order canceled");
     }
     public async Task<IResult> GetById([FromServices] IMediator mediator, [FromRoute] long id, CancellationToken cancellationToken)
     {

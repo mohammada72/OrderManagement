@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using OrderManagement.Application.Common.Interfaces;
 using OrderManagement.Domain.Exceptions;
 
-namespace OrderManagement.Application.CheckoutOrder;
-public class CheckoutOrderCommandHandler(IApplicationDbContext dbContext) : ICommandHandler<CheckoutOrderCommand, int>
+namespace OrderManagement.Application.CancelOrder;
+public class CancelOrderCommandHandler(IApplicationDbContext dbContext) : ICommandHandler<CancelOrderCommand, int>
 {
-    public async Task<int> Handle(CheckoutOrderCommand command, CancellationToken cancellationToken)
+    public async Task<int> Handle(CancelOrderCommand command, CancellationToken cancellationToken)
     {
         var order = await dbContext.Orders.FirstOrDefaultAsync(x => x.Id == command.OrderId, cancellationToken: cancellationToken)
             ?? throw new ItemNotFoundException(nameof(command.OrderId), "Order not found");
-        order.Checkout();
+        order.Cancel();
         return await dbContext.SaveChangesAsync(cancellationToken);
     }
 }

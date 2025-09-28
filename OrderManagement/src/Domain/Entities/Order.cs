@@ -61,9 +61,8 @@ namespace OrderManagement.Domain.Entities
         public void Cancel()
         {
             if (Status == OrderStatus.Canceled) return;
-            Status = Status == OrderStatus.Placed || Status == OrderStatus.Draft
-                ? OrderStatus.Canceled
-                : throw new InvalidOperationException($"Cannot cancel order in status {Status}.");
+            EnsureDraft();
+            Status = OrderStatus.Canceled;
         }
 
         private void EnsureDraft()

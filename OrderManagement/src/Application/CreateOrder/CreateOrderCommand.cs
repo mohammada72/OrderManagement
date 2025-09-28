@@ -6,6 +6,6 @@ namespace OrderManagement.Application.CreateOrder;
 public class CreateOrderCommand : ICommand<Order>
 {
     public long CustomerId { get; set; }
-    public List<AddOrderItemCommand> OrderItems { get; set; } = [];
+    public required List<AddOrderItemCommand> OrderItems { get; set; }
 
 }
